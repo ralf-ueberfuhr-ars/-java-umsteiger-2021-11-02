@@ -6,7 +6,7 @@ public class Konto {
 
     Person person;
 
-    {
+    public void doSomething() {
         person.setAge(45);
     }
 
