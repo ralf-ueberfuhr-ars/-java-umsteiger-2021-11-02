@@ -1,6 +1,6 @@
 package de.datev.schulung.java;
 
-public class Person extends Object {
+public class Person {
 
     private String name;
     private int age;
@@ -19,6 +19,10 @@ public class Person extends Object {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String sayHello() {
+        return "Hello! My name is " + getName();
     }
 
     @Override

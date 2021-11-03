@@ -4,10 +4,27 @@ import de.datev.schulung.java.Person;
 
 public class Konto {
 
-    Person person;
+    private Person inhaber;
+    private double stand;
 
-    public void doSomething() {
-        person.setAge(45);
+    public Person getInhaber() {
+        return inhaber;
+    }
+
+    public void setInhaber(Person inhaber) {
+        this.inhaber = inhaber;
+    }
+
+    public double getStand() {
+        return stand;
+    }
+
+    public void setStand(double stand) {
+        this.stand = stand;
+    }
+
+    public String sayHello() {
+        return inhaber.sayHello() + " (Stand: " + getStand() + ")";
     }
 
 }
