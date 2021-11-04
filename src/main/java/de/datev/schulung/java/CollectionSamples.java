@@ -3,7 +3,6 @@ package de.datev.schulung.java;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -27,7 +26,7 @@ public class CollectionSamples {
             count++;
         }
         // numbers.add(Integer.valueOf(5)); -> das geht hier nicht!
-        return result;
+        return count > 0 ? result / count : 0;
     }
 
     private static void fillNumbers(Collection<? super Number> numbers) {
