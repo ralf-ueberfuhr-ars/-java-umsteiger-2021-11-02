@@ -24,6 +24,9 @@ public class Konto {
     }
 
     public String sayHello() {
+        if(inhaber == null) {
+            throw new IllegalStateException("inhaber must not be null");
+        }
         return inhaber.sayHello() + " (Stand: " + getStand() + ")";
     }
 
