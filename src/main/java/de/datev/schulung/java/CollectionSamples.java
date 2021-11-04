@@ -1,9 +1,12 @@
 package de.datev.schulung.java;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class CollectionSamples {
 
@@ -11,9 +14,27 @@ public class CollectionSamples {
         return t1.compareTo(t2) > 0 ? t1 : t2;
     }
 
-    // PECS (Producer Extends, Consumer super)
     private static <T> void add(Collection<T> col, T t) {
         col.add(t);
+    }
+
+    // PECS (Producer Extends, Consumer super)
+    private static double average(Collection<? extends Number> numbers) {
+        double result = 0;
+        int count = 0;
+        for (Number n : numbers) { // Collection ist Lieferant (Producer)
+            result += n.doubleValue();
+            count++;
+        }
+        // numbers.add(Integer.valueOf(5)); -> das geht hier nicht!
+        return result;
+    }
+
+    private static void fillNumbers(Collection<? super Number> numbers) {
+        for (int i = 0; i < 100; i++) {
+            numbers.add(Math.random()); // Collection ist Empfänger (Consumer)
+        }
+        // Object o = numbers.iterator().next(); -> Auslesen nur als Object
     }
 
     public static void main(String[] args) {
@@ -26,9 +47,9 @@ public class CollectionSamples {
             System.out.println(name);
             // namen.remove(name); -> Exception
         }
-        for (Iterator<String> it = namen.iterator(); it.hasNext();) {
+        for (Iterator<String> it = namen.iterator(); it.hasNext(); ) {
             String name = it.next();
-            if(name.length()<3) {
+            if (name.length() < 3) {
                 it.remove();
                 // namen.remove(name); -> Exception
             }
@@ -48,14 +69,28 @@ public class CollectionSamples {
         Collection col = alles;
         col = zahlen;
 
-        Collection namenRaw = namen;
-        namenRaw.add(5);
-        for (String name: namen) { // ClassCastException
-            System.out.println(name);
+        try {
+            Collection namenRaw = namen;
+            namenRaw.add(5);
+            for (String name : namen) { // ClassCastException
+                System.out.println(name);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        //PECS
+        System.out.println(average(Arrays.asList(1, 3, 5, 10)));
+        System.out.println(average(zahlen));
+        Collection<Double> doubleZahlen = Arrays.asList(4.5, 0.3, -3.4);
+        System.out.println(average(doubleZahlen));
 
-
+        Collection<Object> alleObjekte = new LinkedList<>();
+        alleObjekte.add("Tom");
+        alleObjekte.add(4);
+        alleObjekte.add(LocalDate.now());
+        fillNumbers(alleObjekte);
+        System.out.println(alleObjekte);
     }
 
 }
